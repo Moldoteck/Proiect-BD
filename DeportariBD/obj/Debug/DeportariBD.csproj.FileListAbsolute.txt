@@ -1,0 +1,17 @@
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\bin\Debug\DeportariBD.exe.config
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD.csprojResolveAssemblyReference.cache
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\App.g.cs
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD_MarkupCompile.cache
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\bin\Debug\DeportariBD.exe
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\bin\Debug\DeportariBD.pdb
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\MainWindow.g.cs
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD_MarkupCompile.lref
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\MainWindow.baml
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD.g.resources
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD.Properties.Resources.resources
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD.csproj.GenerateResource.Cache
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD.exe
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD.pdb
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\obj\Debug\DeportariBD_Content.g.cs
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\bin\Debug\BazaDate.mdf
+c:\users\cristian\documents\visual studio 2015\Projects\DeportariBD\DeportariBD\bin\Debug\BazaDate_log.ldf
