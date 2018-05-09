@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d08199cd34444f5b9f2892a3ec52d9dd" Name="Diagram1">
+        <EntityTypeShape EntityType="BazaDateModel.Deportati" Width="1.5" PointX="1" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaDateModel.Localitati" Width="1.5" PointX="3.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaDateModel.Obiecte" Width="1.5" PointX="3.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaDateModel.Republici" Width="1.5" PointX="5.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaDateModel.DetaliiConfiscari" Width="1.75" PointX="1" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaDateModel.DetaliiDeportare" Width="1.75" PointX="7.5" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="BazaDateModel.FK_Deportati_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaDateModel.FK_DetaliiConfiscari_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaDateModel.FK_DetaliiDeportare_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaDateModel.FK_DetaliiDeportare_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaDateModel.FK_DetaliiDeportare_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaDateModel.FK_Localitati_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaDateModel.FK_DetaliiConfiscari_ToTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

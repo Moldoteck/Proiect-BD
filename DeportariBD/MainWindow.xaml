@@ -735,7 +735,7 @@
             </TextBox.Style>
 
         </TextBox>
-        <TextBlock x:Name="textBlock_Logger"  HorizontalAlignment="Left" Margin="72,484,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" RenderTransformOrigin="-0.12,2.969" Height="58" Width="786"/>
+        <TextBlock x:Name="textBlock_Logger"  HorizontalAlignment="Left" Margin="72,484,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.12,2.969" Height="58" Width="786"/>
         <Button x:Name="Delete_entry_button" Content="Sterge" HorizontalAlignment="Left" Margin="72,437,0,0" VerticalAlignment="Top" Width="76" Click="delete_entry_button_Click"/>
         <ComboBox SelectedValuePath="Content" x:Name="comboBox_toDelete" HorizontalAlignment="Left" Margin="173,435,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="comboBox_SelectionChanged" IsReadOnly="True">
             <ComboBoxItem Content="Alege Loc Stergere"/>

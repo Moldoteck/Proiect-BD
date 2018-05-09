@@ -10,5 +10,7 @@
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bazadate.mdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bazadate_log.ldf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("modelbd.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("modelbd.tt")]
 
 

@@ -161,7 +161,7 @@ namespace DeportariBD
             }
             catch (SqlException exc)
             {
-                textBlock_Logger.Text = exc.Message;
+                textBlock_Logger.Text = "Error";
             }
 
             listBox1.FontFamily = new FontFamily("Courier New");
@@ -183,7 +183,7 @@ namespace DeportariBD
             }
             catch (SqlException exc)
             {
-                textBlock_Logger.Text = exc.Message;
+                textBlock_Logger.Text = "Error";
             }
 
             // Setting the visibility components
@@ -251,7 +251,7 @@ namespace DeportariBD
                     }
                     catch (SqlException exc)
                     {
-                        textBlock_Logger.Text = exc.Message;
+                        textBlock_Logger.Text = "Error";
                     }
                     rdr.Close();
 
@@ -264,7 +264,7 @@ namespace DeportariBD
                     }
                     catch (SqlException exc)
                     {
-                        textBlock_Logger.Text = exc.Message;
+                        textBlock_Logger.Text = "Error";
                     }
                     rdr.Close();
 
@@ -290,7 +290,7 @@ namespace DeportariBD
                 }
                 catch (SqlException exc)
                 {
-                    textBlock_Logger.Text = exc.Message;
+                    textBlock_Logger.Text = "Error";
                 }
                 con.Close();
                 button_Click_Search(null, null);
@@ -326,7 +326,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
 
                         comboBox_Deportat_Adder.FontFamily = new FontFamily("Courier New");
@@ -361,7 +361,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
 
                         comboBox_Loc_Reabilitare_adder.FontFamily = new FontFamily("Courier New");
@@ -433,7 +433,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                             string result = "";
                             while (rdr.Read())
@@ -446,8 +446,8 @@ namespace DeportariBD
                                 if (textBox_Deportat_Data_Decesului.Text == "")
                                     textBox_Deportat_Data_Decesului.Text = "NULL";
                                 else
-                                    textBox_Deportat_Data_Decesului.Text = "'" + textBox_Deportat_Data_Decesului.Text + "'";
-                                command = "insert into DEPORTATI (NUME,PRENUME,DATA_NASTERII,DATA_DECES,ID_LOCALITATE_RESEDINTA) values ('" + textBox_Deportat_Name.Text + "','" + textBox_Deportat_Prenume.Text + "','" + textBox_Deportat_Data_nasterii.Text + "'," + textBox_Deportat_Data_Decesului.Text + ",'" + result + "')";
+                                    textBox_Deportat_Data_Decesului.Text = "convert(date, '" + textBox_Deportat_Data_Decesului.Text + "',104)";
+                                command = "insert into DEPORTATI (NUME,PRENUME,DATA_NASTERII,DATA_DECES,ID_LOCALITATE_RESEDINTA) values ('" + textBox_Deportat_Name.Text + "','" + textBox_Deportat_Prenume.Text + "',convert(date, '" + textBox_Deportat_Data_nasterii.Text + "',104)," + textBox_Deportat_Data_Decesului.Text + ",'" + result + "')";
                                 cmd = new SqlCommand(command, con);
                                 try
                                 {
@@ -457,7 +457,7 @@ namespace DeportariBD
                                 }
                                 catch (SqlException exc)
                                 {
-                                    textBlock_Logger.Text = exc.Message;
+                                    textBlock_Logger.Text = "Error";
                                 }
                             }
                             con.Close();
@@ -486,7 +486,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                             string loc_Deportare = "";
                             while (rdr.Read())
@@ -508,7 +508,7 @@ namespace DeportariBD
                                 }
                                 catch (SqlException exc)
                                 {
-                                    textBlock_Logger.Text = exc.Message;
+                                    textBlock_Logger.Text = "Error";
                                 }
                                 while (rdr.Read())
                                 {
@@ -540,10 +540,10 @@ namespace DeportariBD
                             if (textBox_Data_Reabilitare.Text == "")
                                 textBox_Data_Reabilitare.Text = "NULL";
                             else
-                                textBox_Data_Reabilitare.Text = "'" + textBox_Data_Reabilitare.Text + "'";
+                                textBox_Data_Reabilitare.Text = "convert(date, '" + textBox_Data_Reabilitare.Text + "',104)";
                             if (loc_Reabilitare != "NULL")
                                 loc_Reabilitare = "'" + loc_Reabilitare + "'";
-                            command = "insert into DETALIIDEPORTARE (DATA_REABILITARE,ID_LOCALITATE_REABILITARE,DATA_DEPORTARE,ID_LOCALITATE_DEPORTARE,ID_DEPORTAT) values (" + textBox_Data_Reabilitare.Text + "," + loc_Reabilitare + ",'" + textBox_Data_Deportare.Text + "'," + loc_Deportare + ",'" + id_Deportat + "')";
+                            command = "insert into DETALIIDEPORTARE (DATA_REABILITARE,ID_LOCALITATE_REABILITARE,DATA_DEPORTARE,ID_LOCALITATE_DEPORTARE,ID_DEPORTAT) values (" + textBox_Data_Reabilitare.Text + "," + loc_Reabilitare + ",convert(date, '" + textBox_Data_Deportare.Text + "',104)," + loc_Deportare + ",'" + id_Deportat + "')";
                             cmd = new SqlCommand(command, con);
                             try
                             {
@@ -553,9 +553,8 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
-
 
                             con.Close();
                             comboBox_Loc_Deportare_adder.SelectedIndex = 0;
@@ -584,7 +583,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                             string id_region = "";
                             while (rdr.Read())
@@ -594,7 +593,7 @@ namespace DeportariBD
                             if (id_region == "")
                                 break;
                             rdr.Close();
-                            command = "insert into LOCALITATI (DENUMIRE, ID_REPUBLICA) values('" + textBox_Localitate.Text + "','" + textBox_Localitate_Regiune.Text + "')";
+                            command = "insert into LOCALITATI (DENUMIRE, ID_REPUBLICA) values('" + textBox_Localitate.Text + "','" + id_region + "')";
 
                             cmd = new SqlCommand(command, con);
                             try
@@ -604,7 +603,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
 
                         }
@@ -622,12 +621,12 @@ namespace DeportariBD
                             try
                             {
                                 rdr = cmd.ExecuteReader();
-                                    textBlock_Logger.Text = "Succes";
+                                textBlock_Logger.Text = "Succes";
                                 rdr.Close();
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                             textBox_Regiune.Text = "";
                         }
@@ -641,18 +640,18 @@ namespace DeportariBD
                         {
                             con = new SqlConnection(conn);
                             con.Open();
-                            command = "insert into OBIECTE values('" + textBox_Obiect.Text + "','" + textBox_Obiect_Utilizabil.Text + "')";
+                            command = "insert into OBIECTE values('" + textBox_Obiect.Text + "')";
 
                             cmd = new SqlCommand(command, con);
                             try
                             {
                                 rdr = cmd.ExecuteReader();
-                                    textBlock_Logger.Text = "Succes";
+                                textBlock_Logger.Text = "Succes";
                                 rdr.Close();
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                             textBox_Regiune.Text = "";
                         }
@@ -689,7 +688,9 @@ namespace DeportariBD
                 SqlConnection con2 = new SqlConnection(conn);
                 con2.Open();
                 string command = "select * from Deportati where ID=" + selecteditem;
-
+                command = "select d.Id, d.Nume, d.Prenume, d.DATA_NASTERII, d.DATA_DECES, d.ID_LOCALITATE_RESEDINTA, " +
+                     "dd.DATA_REABILITARE, dd.ID_LOCALITATE_REABILITARE, dd.DATA_DEPORTARE, dd.ID_LOCALITATE_DEPORTARE " +
+                     "from Deportati d left join DetaliiDeportare dd on d.Id=dd.ID_DEPORTAT where d.Id=" + selecteditem;
                 SqlCommand cmd = new SqlCommand(command, con);
 
                 SqlDataReader rdr = null;
@@ -700,7 +701,7 @@ namespace DeportariBD
                 }
                 catch (SqlException exc)
                 {
-                    textBlock_Logger.Text = exc.Message;
+                    textBlock_Logger.Text = "Error";
                 }
                 SqlDataReader temp = null;
 
@@ -710,6 +711,8 @@ namespace DeportariBD
                     ID_LOCALITATEREABILITARE = "NULL", ID_LOCALITATEDEPORTAT = "",
                     LOCALITATEREABILITARE = "NULL", LOCALITATEDEPORTAT = "",
                     OBIECTECONFISCATE = "";
+                bool detaliiflag = false;//flag false if deportat doesnt have details
+                //citire Deportat si detalii deportat
                 while (rdr.Read())
                 {
                     ID = rdr.GetInt32(0).ToString();
@@ -721,33 +724,16 @@ namespace DeportariBD
                         DATADECES = rdr.GetDateTime(4).ToShortDateString();
                     }
                     ID_LOCALITATE_RESEDINTA = rdr.GetInt32(5).ToString();
-                }
-                rdr.Close();
 
-                command = "select * from DETALIIDEPORTARE where ID_DEPORTAT=" + selecteditem;
-
-                cmd = new SqlCommand(command, con);
-
-                try
-                {
-                    rdr = cmd.ExecuteReader();
-                    textBlock_Logger.Text = "Succes";
-                }
-                catch (SqlException exc)
-                {
-                    textBlock_Logger.Text = exc.Message;
-                }
-                bool detaliiflag = false;//flag false if deportat doesnt have details
-                while (rdr.Read())
-                {
-                    detaliiflag = true;
-                    if (!rdr.IsDBNull(0))
+                    if (!rdr.IsDBNull(6))
                     {
-                        DATAREABILITARE = rdr.GetDateTime(0).ToShortDateString(); ;
+                        detaliiflag = true;
+                        DATAREABILITARE = rdr.GetDateTime(6).ToShortDateString(); ;
                     }
-                    if (!rdr.IsDBNull(1))
+                    if (!rdr.IsDBNull(7))
                     {
-                        ID_LOCALITATEREABILITARE = rdr.GetInt32(1).ToString();
+                        detaliiflag = true;
+                        ID_LOCALITATEREABILITARE = rdr.GetInt32(7).ToString();
                         command = "select DENUMIRE from LOCALITATI where ID_LOCALITATE=" + ID_LOCALITATEREABILITARE;
 
                         cmd = new SqlCommand(command, con2);
@@ -758,7 +744,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         while (temp.Read())
                         {
@@ -766,25 +752,33 @@ namespace DeportariBD
                         }
                         temp.Close();
                     }
-                    DATADEPORTARE = rdr.GetDateTime(2).ToShortDateString();
-                    ID_LOCALITATEDEPORTAT = rdr.GetInt32(3).ToString();
-                    command = "select DENUMIRE from LOCALITATI where ID_LOCALITATE=" + ID_LOCALITATEDEPORTAT;
+                    if (!rdr.IsDBNull(8))
+                    {
+                        detaliiflag = true;
+                        DATADEPORTARE = rdr.GetDateTime(8).ToShortDateString();
+                    }
+                    if (!rdr.IsDBNull(9))
+                    {
+                        detaliiflag = true;
+                        ID_LOCALITATEDEPORTAT = rdr.GetInt32(9).ToString();
+                        command = "select DENUMIRE from LOCALITATI where ID_LOCALITATE=" + ID_LOCALITATEDEPORTAT;
 
-                    cmd = new SqlCommand(command, con2);
-                    try
-                    {
-                        rdr = cmd.ExecuteReader();
-                        textBlock_Logger.Text = "Succes";
+                        cmd = new SqlCommand(command, con2);
+                        try
+                        {
+                            temp = cmd.ExecuteReader();
+                            textBlock_Logger.Text = "Succes";
+                        }
+                        catch (SqlException exc)
+                        {
+                            textBlock_Logger.Text = "Error";
+                        }
+                        while (temp.Read())
+                        {
+                            LOCALITATEDEPORTAT = temp.GetString(0);
+                        }
+                        temp.Close();
                     }
-                    catch (SqlException exc)
-                    {
-                        textBlock_Logger.Text = exc.Message;
-                    }
-                    while (temp.Read())
-                    {
-                        LOCALITATEDEPORTAT = temp.GetString(0);
-                    }
-                    temp.Close();
                 }
                 rdr.Close();
 
@@ -799,7 +793,7 @@ namespace DeportariBD
                 }
                 catch (SqlException exc)
                 {
-                    textBlock_Logger.Text = exc.Message;
+                    textBlock_Logger.Text = "Error";
                 }
                 while (rdr.Read())
                 {
@@ -820,20 +814,22 @@ namespace DeportariBD
                 }
                 catch (SqlException exc)
                 {
-                    textBlock_Logger.Text = exc.Message;
+                    textBlock_Logger.Text = "Error";
                 }
+                if (rdr != null)
+                    rdr.Close();
                 try
                 {
-                    rdr = cmd.ExecuteReader();
+                    rdr = cmd2.ExecuteReader();
                     textBlock_Logger.Text = "Succes";
                 }
                 catch (SqlException exc)
                 {
-                    textBlock_Logger.Text = exc.Message;
+                    textBlock_Logger.Text = "Error";
                 }
                 while (rdr.Read() && temp.Read())
                 {
-                    OBIECTECONFISCATE += temp.GetInt32(0) + " x " + rdr.GetString(0) + ", ";
+                    OBIECTECONFISCATE += rdr.GetInt32(0) + " x " + temp.GetString(0) + ", ";
                 }
                 if (OBIECTECONFISCATE.Length != 0)
                     OBIECTECONFISCATE = OBIECTECONFISCATE.Substring(0, OBIECTECONFISCATE.Length - 2);
@@ -868,7 +864,7 @@ namespace DeportariBD
                 con.Open();
                 SqlCommand cmd;// new SqlCommand(command, con);
 
-                SqlDataReader rdr=null;//= cmd.ExecuteReader();
+                SqlDataReader rdr = null;//= cmd.ExecuteReader();
 
                 string field = listBox1.SelectedItem.ToString().Split(':')[0];
                 switch (field)
@@ -883,7 +879,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                     case "PRENUME":
@@ -896,7 +892,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                     case "DATA NASTERII":
@@ -909,7 +905,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                     case "DATA DECESULUI":
@@ -924,7 +920,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         else
@@ -938,7 +934,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
 
@@ -953,7 +949,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                     case "DATA DEPORTARE":
@@ -966,7 +962,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                     case "LOCALITATE DEPORTARE":
@@ -979,7 +975,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                     case "DATA REABILITARE":
@@ -994,7 +990,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         else
@@ -1008,7 +1004,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         break;
@@ -1025,7 +1021,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         else
@@ -1039,7 +1035,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         break;
@@ -1059,7 +1055,7 @@ namespace DeportariBD
                                 }
                                 catch (SqlException exc)
                                 {
-                                    textBlock_Logger.Text = exc.Message;
+                                    textBlock_Logger.Text = "Error";
                                 }
                             }
                             else
@@ -1073,7 +1069,7 @@ namespace DeportariBD
                                 }
                                 catch (SqlException exc)
                                 {
-                                    textBlock_Logger.Text = exc.Message;
+                                    textBlock_Logger.Text = "Error";
                                 }
                                 rdr.Close();
                                 command = "insert into DETALIICONFISCARI values(" + MAIN_ID + ", (select ID from OBIECTE where lower(Denumire)=lower('" + str[1] + "')), " + str[0] + ")";
@@ -1085,7 +1081,7 @@ namespace DeportariBD
                                 }
                                 catch (SqlException exc)
                                 {
-                                    textBlock_Logger.Text = exc.Message;
+                                    textBlock_Logger.Text = "Error";
                                 }
                             }
                         }
@@ -1100,7 +1096,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         break;
@@ -1117,7 +1113,7 @@ namespace DeportariBD
         {
             string sellect = comboBox_toDelete.SelectedValue.ToString();
             setVisibilityComponents();
-            if (sellect != "Alege Tip Adaugare")
+            if (sellect != "Alege Loc Stergere")
             {
                 SqlConnection con;
                 string command;
@@ -1142,7 +1138,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         break;
@@ -1163,7 +1159,7 @@ namespace DeportariBD
                             }
                             catch (SqlException exc)
                             {
-                                textBlock_Logger.Text = exc.Message;
+                                textBlock_Logger.Text = "Error";
                             }
                         }
                         break;
@@ -1181,7 +1177,7 @@ namespace DeportariBD
                         }
                         catch (SqlException exc)
                         {
-                            textBlock_Logger.Text = exc.Message;
+                            textBlock_Logger.Text = "Error";
                         }
                         break;
                 }

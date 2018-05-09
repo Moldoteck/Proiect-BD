@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BazaDateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Deportati">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prenume" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DATA_NASTERII" Type="date" Nullable="false" />
+          <Property Name="DATA_DECES" Type="date" />
+          <Property Name="ID_LOCALITATE_RESEDINTA" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\CRISTIAN\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\DEPORTARIBD\DEPORTARIBD\BAZADATE.MDF.dbo.DetaliiConfiscari' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DetaliiConfiscari">
+          <Key>
+            <PropertyRef Name="ID_DEPORTAT" />
+            <PropertyRef Name="ID_OBIECT" />
+            <PropertyRef Name="CANTITATE" />
+          </Key>
+          <Property Name="ID_DEPORTAT" Type="int" Nullable="false" />
+          <Property Name="ID_OBIECT" Type="int" Nullable="false" />
+          <Property Name="CANTITATE" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\CRISTIAN\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\DEPORTARIBD\DEPORTARIBD\BAZADATE.MDF.dbo.DetaliiDeportare' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DetaliiDeportare">
+          <Key>
+            <PropertyRef Name="DATA_DEPORTARE" />
+            <PropertyRef Name="ID_LOCALITATE_DEPORTARE" />
+            <PropertyRef Name="ID_DEPORTAT" />
+          </Key>
+          <Property Name="DATA_REABILITARE" Type="date" />
+          <Property Name="ID_LOCALITATE_REABILITARE" Type="int" />
+          <Property Name="DATA_DEPORTARE" Type="date" Nullable="false" />
+          <Property Name="ID_LOCALITATE_DEPORTARE" Type="int" Nullable="false" />
+          <Property Name="ID_DEPORTAT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Localitati">
+          <Key>
+            <PropertyRef Name="ID_LOCALITATE" />
+          </Key>
+          <Property Name="ID_LOCALITATE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DENUMIRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_REPUBLICA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Obiecte">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DENUMIRE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Republici">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DENUMIRE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Deportati_ToTable">
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="1" />
+          <End Role="Deportati" Type="Self.Deportati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitati">
+              <PropertyRef Name="ID_LOCALITATE" />
+            </Principal>
+            <Dependent Role="Deportati">
+              <PropertyRef Name="ID_LOCALITATE_RESEDINTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiConfiscari_ToTable">
+          <End Role="Obiecte" Type="Self.Obiecte" Multiplicity="1" />
+          <End Role="DetaliiConfiscari" Type="Self.DetaliiConfiscari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obiecte">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetaliiConfiscari">
+              <PropertyRef Name="ID_OBIECT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiConfiscari_ToTable_1">
+          <End Role="Deportati" Type="Self.Deportati" Multiplicity="1" />
+          <End Role="DetaliiConfiscari" Type="Self.DetaliiConfiscari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deportati">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetaliiConfiscari">
+              <PropertyRef Name="ID_DEPORTAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiDeportare_ToTable">
+          <End Role="Deportati" Type="Self.Deportati" Multiplicity="1" />
+          <End Role="DetaliiDeportare" Type="Self.DetaliiDeportare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deportati">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetaliiDeportare">
+              <PropertyRef Name="ID_DEPORTAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiDeportare_ToTable_1">
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="0..1" />
+          <End Role="DetaliiDeportare" Type="Self.DetaliiDeportare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitati">
+              <PropertyRef Name="ID_LOCALITATE" />
+            </Principal>
+            <Dependent Role="DetaliiDeportare">
+              <PropertyRef Name="ID_LOCALITATE_REABILITARE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiDeportare_ToTable_2">
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="1" />
+          <End Role="DetaliiDeportare" Type="Self.DetaliiDeportare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitati">
+              <PropertyRef Name="ID_LOCALITATE" />
+            </Principal>
+            <Dependent Role="DetaliiDeportare">
+              <PropertyRef Name="ID_LOCALITATE_DEPORTARE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localitati_ToTable">
+          <End Role="Republici" Type="Self.Republici" Multiplicity="1" />
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Republici">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Localitati">
+              <PropertyRef Name="ID_REPUBLICA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BazaDateModelStoreContainer">
+          <EntitySet Name="Deportati" EntityType="Self.Deportati" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localitati" EntityType="Self.Localitati" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obiecte" EntityType="Self.Obiecte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Republici" EntityType="Self.Republici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetaliiConfiscari" EntityType="Self.DetaliiConfiscari" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DetaliiConfiscari].[ID_DEPORTAT] AS [ID_DEPORTAT], 
+    [DetaliiConfiscari].[ID_OBIECT] AS [ID_OBIECT], 
+    [DetaliiConfiscari].[CANTITATE] AS [CANTITATE]
+    FROM [dbo].[DetaliiConfiscari] AS [DetaliiConfiscari]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DetaliiDeportare" EntityType="Self.DetaliiDeportare" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DetaliiDeportare].[DATA_REABILITARE] AS [DATA_REABILITARE], 
+    [DetaliiDeportare].[ID_LOCALITATE_REABILITARE] AS [ID_LOCALITATE_REABILITARE], 
+    [DetaliiDeportare].[DATA_DEPORTARE] AS [DATA_DEPORTARE], 
+    [DetaliiDeportare].[ID_LOCALITATE_DEPORTARE] AS [ID_LOCALITATE_DEPORTARE], 
+    [DetaliiDeportare].[ID_DEPORTAT] AS [ID_DEPORTAT]
+    FROM [dbo].[DetaliiDeportare] AS [DetaliiDeportare]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Deportati_ToTable" Association="Self.FK_Deportati_ToTable">
+            <End Role="Localitati" EntitySet="Localitati" />
+            <End Role="Deportati" EntitySet="Deportati" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiConfiscari_ToTable" Association="Self.FK_DetaliiConfiscari_ToTable">
+            <End Role="Obiecte" EntitySet="Obiecte" />
+            <End Role="DetaliiConfiscari" EntitySet="DetaliiConfiscari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiConfiscari_ToTable_1" Association="Self.FK_DetaliiConfiscari_ToTable_1">
+            <End Role="Deportati" EntitySet="Deportati" />
+            <End Role="DetaliiConfiscari" EntitySet="DetaliiConfiscari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiDeportare_ToTable" Association="Self.FK_DetaliiDeportare_ToTable">
+            <End Role="Deportati" EntitySet="Deportati" />
+            <End Role="DetaliiDeportare" EntitySet="DetaliiDeportare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiDeportare_ToTable_1" Association="Self.FK_DetaliiDeportare_ToTable_1">
+            <End Role="Localitati" EntitySet="Localitati" />
+            <End Role="DetaliiDeportare" EntitySet="DetaliiDeportare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiDeportare_ToTable_2" Association="Self.FK_DetaliiDeportare_ToTable_2">
+            <End Role="Localitati" EntitySet="Localitati" />
+            <End Role="DetaliiDeportare" EntitySet="DetaliiDeportare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localitati_ToTable" Association="Self.FK_Localitati_ToTable">
+            <End Role="Republici" EntitySet="Republici" />
+            <End Role="Localitati" EntitySet="Localitati" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BazaDateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Deportati">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prenume" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DATA_NASTERII" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DATA_DECES" Type="DateTime" Precision="0" />
+          <Property Name="ID_LOCALITATE_RESEDINTA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Localitati" Relationship="Self.FK_Deportati_ToTable" FromRole="Deportati" ToRole="Localitati" />
+          <NavigationProperty Name="DetaliiConfiscari" Relationship="Self.FK_DetaliiConfiscari_ToTable_1" FromRole="Deportati" ToRole="DetaliiConfiscari" />
+          <NavigationProperty Name="DetaliiDeportare" Relationship="Self.FK_DetaliiDeportare_ToTable" FromRole="Deportati" ToRole="DetaliiDeportare" />
+        </EntityType>
+        <EntityType Name="Localitati">
+          <Key>
+            <PropertyRef Name="ID_LOCALITATE" />
+          </Key>
+          <Property Name="ID_LOCALITATE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DENUMIRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_REPUBLICA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deportati" Relationship="Self.FK_Deportati_ToTable" FromRole="Localitati" ToRole="Deportati" />
+          <NavigationProperty Name="DetaliiDeportare" Relationship="Self.FK_DetaliiDeportare_ToTable_1" FromRole="Localitati" ToRole="DetaliiDeportare" />
+          <NavigationProperty Name="DetaliiDeportare1" Relationship="Self.FK_DetaliiDeportare_ToTable_2" FromRole="Localitati" ToRole="DetaliiDeportare" />
+          <NavigationProperty Name="Republici" Relationship="Self.FK_Localitati_ToTable" FromRole="Localitati" ToRole="Republici" />
+        </EntityType>
+        <EntityType Name="Obiecte">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DENUMIRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DetaliiConfiscari" Relationship="Self.FK_DetaliiConfiscari_ToTable" FromRole="Obiecte" ToRole="DetaliiConfiscari" />
+        </EntityType>
+        <EntityType Name="Republici">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DENUMIRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Localitati" Relationship="Self.FK_Localitati_ToTable" FromRole="Republici" ToRole="Localitati" />
+        </EntityType>
+        <EntityType Name="DetaliiConfiscari">
+          <Key>
+            <PropertyRef Name="ID_DEPORTAT" />
+            <PropertyRef Name="ID_OBIECT" />
+            <PropertyRef Name="CANTITATE" />
+          </Key>
+          <Property Name="ID_DEPORTAT" Type="Int32" Nullable="false" />
+          <Property Name="ID_OBIECT" Type="Int32" Nullable="false" />
+          <Property Name="CANTITATE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deportati" Relationship="Self.FK_DetaliiConfiscari_ToTable_1" FromRole="DetaliiConfiscari" ToRole="Deportati" />
+          <NavigationProperty Name="Obiecte" Relationship="Self.FK_DetaliiConfiscari_ToTable" FromRole="DetaliiConfiscari" ToRole="Obiecte" />
+        </EntityType>
+        <EntityType Name="DetaliiDeportare">
+          <Key>
+            <PropertyRef Name="DATA_DEPORTARE" />
+            <PropertyRef Name="ID_LOCALITATE_DEPORTARE" />
+            <PropertyRef Name="ID_DEPORTAT" />
+          </Key>
+          <Property Name="DATA_REABILITARE" Type="DateTime" Precision="0" />
+          <Property Name="ID_LOCALITATE_REABILITARE" Type="Int32" />
+          <Property Name="DATA_DEPORTARE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_LOCALITATE_DEPORTARE" Type="Int32" Nullable="false" />
+          <Property Name="ID_DEPORTAT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deportati" Relationship="Self.FK_DetaliiDeportare_ToTable" FromRole="DetaliiDeportare" ToRole="Deportati" />
+          <NavigationProperty Name="Localitati" Relationship="Self.FK_DetaliiDeportare_ToTable_1" FromRole="DetaliiDeportare" ToRole="Localitati" />
+          <NavigationProperty Name="Localitati1" Relationship="Self.FK_DetaliiDeportare_ToTable_2" FromRole="DetaliiDeportare" ToRole="Localitati" />
+        </EntityType>
+        <Association Name="FK_Deportati_ToTable">
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="1" />
+          <End Role="Deportati" Type="Self.Deportati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitati">
+              <PropertyRef Name="ID_LOCALITATE" />
+            </Principal>
+            <Dependent Role="Deportati">
+              <PropertyRef Name="ID_LOCALITATE_RESEDINTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiConfiscari_ToTable_1">
+          <End Role="Deportati" Type="Self.Deportati" Multiplicity="1" />
+          <End Role="DetaliiConfiscari" Type="Self.DetaliiConfiscari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deportati">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetaliiConfiscari">
+              <PropertyRef Name="ID_DEPORTAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiDeportare_ToTable">
+          <End Role="Deportati" Type="Self.Deportati" Multiplicity="1" />
+          <End Role="DetaliiDeportare" Type="Self.DetaliiDeportare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deportati">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetaliiDeportare">
+              <PropertyRef Name="ID_DEPORTAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiDeportare_ToTable_1">
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="0..1" />
+          <End Role="DetaliiDeportare" Type="Self.DetaliiDeportare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitati">
+              <PropertyRef Name="ID_LOCALITATE" />
+            </Principal>
+            <Dependent Role="DetaliiDeportare">
+              <PropertyRef Name="ID_LOCALITATE_REABILITARE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiDeportare_ToTable_2">
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="1" />
+          <End Role="DetaliiDeportare" Type="Self.DetaliiDeportare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitati">
+              <PropertyRef Name="ID_LOCALITATE" />
+            </Principal>
+            <Dependent Role="DetaliiDeportare">
+              <PropertyRef Name="ID_LOCALITATE_DEPORTARE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localitati_ToTable">
+          <End Role="Republici" Type="Self.Republici" Multiplicity="1" />
+          <End Role="Localitati" Type="Self.Localitati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Republici">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Localitati">
+              <PropertyRef Name="ID_REPUBLICA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetaliiConfiscari_ToTable">
+          <End Role="Obiecte" Type="Self.Obiecte" Multiplicity="1" />
+          <End Role="DetaliiConfiscari" Type="Self.DetaliiConfiscari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obiecte">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetaliiConfiscari">
+              <PropertyRef Name="ID_OBIECT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BazaDateEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Deportati" EntityType="Self.Deportati" />
+          <EntitySet Name="Localitati" EntityType="Self.Localitati" />
+          <EntitySet Name="Obiecte" EntityType="Self.Obiecte" />
+          <EntitySet Name="Republici" EntityType="Self.Republici" />
+          <EntitySet Name="DetaliiConfiscari" EntityType="Self.DetaliiConfiscari" />
+          <EntitySet Name="DetaliiDeportare" EntityType="Self.DetaliiDeportare" />
+          <AssociationSet Name="FK_Deportati_ToTable" Association="Self.FK_Deportati_ToTable">
+            <End Role="Localitati" EntitySet="Localitati" />
+            <End Role="Deportati" EntitySet="Deportati" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiConfiscari_ToTable_1" Association="Self.FK_DetaliiConfiscari_ToTable_1">
+            <End Role="Deportati" EntitySet="Deportati" />
+            <End Role="DetaliiConfiscari" EntitySet="DetaliiConfiscari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiDeportare_ToTable" Association="Self.FK_DetaliiDeportare_ToTable">
+            <End Role="Deportati" EntitySet="Deportati" />
+            <End Role="DetaliiDeportare" EntitySet="DetaliiDeportare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiDeportare_ToTable_1" Association="Self.FK_DetaliiDeportare_ToTable_1">
+            <End Role="Localitati" EntitySet="Localitati" />
+            <End Role="DetaliiDeportare" EntitySet="DetaliiDeportare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiDeportare_ToTable_2" Association="Self.FK_DetaliiDeportare_ToTable_2">
+            <End Role="Localitati" EntitySet="Localitati" />
+            <End Role="DetaliiDeportare" EntitySet="DetaliiDeportare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localitati_ToTable" Association="Self.FK_Localitati_ToTable">
+            <End Role="Republici" EntitySet="Republici" />
+            <End Role="Localitati" EntitySet="Localitati" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetaliiConfiscari_ToTable" Association="Self.FK_DetaliiConfiscari_ToTable">
+            <End Role="Obiecte" EntitySet="Obiecte" />
+            <End Role="DetaliiConfiscari" EntitySet="DetaliiConfiscari" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BazaDateModelStoreContainer" CdmEntityContainer="BazaDateEntities">
+          <EntitySetMapping Name="Deportati">
+            <EntityTypeMapping TypeName="BazaDateModel.Deportati">
+              <MappingFragment StoreEntitySet="Deportati">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+                <ScalarProperty Name="DATA_NASTERII" ColumnName="DATA_NASTERII" />
+                <ScalarProperty Name="DATA_DECES" ColumnName="DATA_DECES" />
+                <ScalarProperty Name="ID_LOCALITATE_RESEDINTA" ColumnName="ID_LOCALITATE_RESEDINTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localitati">
+            <EntityTypeMapping TypeName="BazaDateModel.Localitati">
+              <MappingFragment StoreEntitySet="Localitati">
+                <ScalarProperty Name="ID_LOCALITATE" ColumnName="ID_LOCALITATE" />
+                <ScalarProperty Name="DENUMIRE" ColumnName="DENUMIRE" />
+                <ScalarProperty Name="ID_REPUBLICA" ColumnName="ID_REPUBLICA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obiecte">
+            <EntityTypeMapping TypeName="BazaDateModel.Obiecte">
+              <MappingFragment StoreEntitySet="Obiecte">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DENUMIRE" ColumnName="DENUMIRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Republici">
+            <EntityTypeMapping TypeName="BazaDateModel.Republici">
+              <MappingFragment StoreEntitySet="Republici">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DENUMIRE" ColumnName="DENUMIRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetaliiConfiscari">
+            <EntityTypeMapping TypeName="BazaDateModel.DetaliiConfiscari">
+              <MappingFragment StoreEntitySet="DetaliiConfiscari">
+                <ScalarProperty Name="ID_DEPORTAT" ColumnName="ID_DEPORTAT" />
+                <ScalarProperty Name="ID_OBIECT" ColumnName="ID_OBIECT" />
+                <ScalarProperty Name="CANTITATE" ColumnName="CANTITATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetaliiDeportare">
+            <EntityTypeMapping TypeName="BazaDateModel.DetaliiDeportare">
+              <MappingFragment StoreEntitySet="DetaliiDeportare">
+                <ScalarProperty Name="DATA_REABILITARE" ColumnName="DATA_REABILITARE" />
+                <ScalarProperty Name="ID_LOCALITATE_REABILITARE" ColumnName="ID_LOCALITATE_REABILITARE" />
+                <ScalarProperty Name="DATA_DEPORTARE" ColumnName="DATA_DEPORTARE" />
+                <ScalarProperty Name="ID_LOCALITATE_DEPORTARE" ColumnName="ID_LOCALITATE_DEPORTARE" />
+                <ScalarProperty Name="ID_DEPORTAT" ColumnName="ID_DEPORTAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
